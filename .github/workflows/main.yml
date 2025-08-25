@@ -24,11 +24,13 @@ jobs:
 
       # Install dependencies
       - name: Flutter Pub Get
-        run: cd .. && cd .. && cd flutter_cicd && flutter pub get
+        run: flutter pub get
+        working-directory: flutter_cicd
 
       # Build APK
       - name: Flutter Release Build (APK)
         run: flutter build apk --release --split-per-abi
+        working-directory: flutter_cicd
 
       # Build App Bundle (optional, for Play Store)
       # - name: Flutter Release Build (AAB)
