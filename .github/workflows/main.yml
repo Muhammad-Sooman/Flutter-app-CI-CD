@@ -1,4 +1,4 @@
-name: flutter app CI/CD
+name: Flutter App CI/CD
 
 on:
   push:
@@ -11,15 +11,39 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: flutter pub get
-      - run: flutter pub get
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Flutter release build
-      - run: flutter build apk --release --split-per-api
-      
-      # Upload artifacts (APK, AAB, iOS build)
+      # Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.7' # use your version
+          channel: 'stable'
+
+      # Install dependencies
+      - name: Flutter Pub Get
+        run: flutter pub get
+
+      # Build APK
+      - name: Flutter Release Build (APK)
+        run: flutter build apk --release --split-per-abi
+
+      # Build App Bundle (optional, for Play Store)
+      # - name: Flutter Release Build (AAB)
+      #   run: flutter build appbundle --release
+
+      # Upload APK artifact
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+
+      # Upload AAB artifact
+      # - name: Upload Android AAB
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: android-aab
+      #     path: build/app/outputs/bundle/release/app-release.aab
