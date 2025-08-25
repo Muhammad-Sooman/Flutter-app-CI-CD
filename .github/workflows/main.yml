@@ -1,0 +1,25 @@
+name: flutter app CI/CD
+
+on:
+  push:
+    branches:
+      - stage
+
+jobs:
+  build:
+    name: Build Flutter Release
+    runs-on: windows-latest
+
+    steps:
+      - name: flutter pub get
+      - run: flutter pub get
+
+      - name: Flutter release build
+      - run: flutter build apk --release --split-per-api
+      
+      # Upload artifacts (APK, AAB, iOS build)
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
