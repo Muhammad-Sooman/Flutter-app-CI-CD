@@ -24,7 +24,7 @@ jobs:
 
       # Install dependencies
       - name: Flutter Pub Get
-        run: cd flutter_cicd && flutter pub get
+        run: cd .. && cd .. && cd flutter_cicd && flutter pub get
 
       # Build APK
       - name: Flutter Release Build (APK)
