@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build Flutter Release
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       # Checkout code
@@ -21,6 +21,9 @@ jobs:
         with:
           flutter-version: '3.32.7' # use your version
           channel: 'stable'
+        
+      - name: Change Directory
+      - run: cd flutter_cicd
 
       # Install dependencies
       - name: Flutter Pub Get
