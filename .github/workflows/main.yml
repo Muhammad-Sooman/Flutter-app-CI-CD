@@ -21,13 +21,10 @@ jobs:
         with:
           flutter-version: '3.32.7' # use your version
           channel: 'stable'
-        
-      - name: Change Directory
-      - run: cd flutter_cicd
 
       # Install dependencies
       - name: Flutter Pub Get
-        run: flutter pub get
+        run: cd flutter_cicd && flutter pub get
 
       # Build APK
       - name: Flutter Release Build (APK)
